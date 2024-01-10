@@ -1,7 +1,7 @@
-
+using RestSharp;
 namespace KrakenRest.NetCore;
 
-public class Program
+public static class Program
 {
     public static void Main(string[] args)
     {
@@ -14,6 +14,13 @@ public class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
+        // add config
+        builder.Configuration.AddJsonFile(
+            Configuration.AppSettingsJson,
+            optional: false,
+            reloadOnChange: true);
+
+        // build the app
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
@@ -22,31 +29,22 @@ public class Program
             app.UseSwagger();
             app.UseSwaggerUI();
         }
-
         app.UseHttpsRedirection();
-
         app.UseAuthorization();
 
-        var summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
-
-        app.MapGet("/weatherforecast", (HttpContext httpContext) =>
-        {
-            var forecast =  Enumerable.Range(1, 5).Select(index =>
-                new WeatherForecast
-                {
-                    Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                    TemperatureC = Random.Shared.Next(-20, 55),
-                    Summary = summaries[Random.Shared.Next(summaries.Length)]
-                })
-                .ToArray();
-            return forecast;
-        })
-        .WithName("GetWeatherForecast")
-        .WithOpenApi();
-
+        // run
+        var config = new Configuration(app.Configuration);
+        var client = CreateRestClient(config.MarketApiUrl);
+        app.MapRest(client, config);
         app.Run();
+    }
+
+    private static RestClient CreateRestClient(string? url)
+    {
+        if (string.IsNullOrWhiteSpace(url))
+        {
+            throw new ArgumentNullException(nameof(url));
+        }
+        return new RestClient(url);
     }
 }
