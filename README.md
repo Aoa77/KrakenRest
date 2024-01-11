@@ -1,5 +1,5 @@
 # KrakenRest
-A .NET Core Web API Swagger facade for Kraken's public marketplace Rest API.
+A .NET Core Web API Swagger facade for [Kraken's public marketplace Rest API](https://docs.kraken.com/rest/#tag/Market-Data).
 
 This is a brand new project currently under development.
 
