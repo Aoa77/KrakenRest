@@ -17,9 +17,9 @@ public sealed class RestRouter : EndpointRouter
     public void MapGet<T>() where T : IResponseData
     {
         var route = typeof(T).Name;
-        _app.MapGet($@"/{route}", async (ctx) =>
+        _app.MapGet($@"/{route}", (HttpContext ctx) =>
         {
-            await ExecuteGet<T>(ctx, route);
+            ExecuteGet<T>(ctx, route).Wait();
         })
         .WithName("Get"  + route)
         .WithOpenApi();
