@@ -2,5 +2,5 @@
 
 public sealed class Depth : IResponseData
 {
-    public Type? RequestType { get; }
+    public Type? RequestType => null;
 }

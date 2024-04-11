@@ -9,6 +9,7 @@ public static class Program
 
         // Add services to the container.
         builder.Services.AddAuthorization();
+        builder.Services.AddCors();
 
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
@@ -31,6 +32,8 @@ public static class Program
         }
         app.UseHttpsRedirection();
         app.UseAuthorization();
+        app.UseCors( app => app.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
 
         // run
         var config = new Configuration(app.Configuration);
@@ -74,4 +77,16 @@ public static class Program
         }
         return new RestClient(url);
     }
+}
+
+
+public class WeatherForecast
+{
+    public DateOnly Date { get; set; }
+
+    public int TemperatureC { get; set; }
+
+    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+
+    public string? Summary { get; set; }
 }

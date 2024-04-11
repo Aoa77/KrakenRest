@@ -2,5 +2,5 @@
 
 public sealed class OHLC : IResponseData
 {
-    public Type? RequestType { get; }
+    public Type? RequestType => null;
 }

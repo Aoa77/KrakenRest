@@ -4,5 +4,5 @@ public sealed class SystemStatus : IResponseData
 {
     public string status { get; set; }
     public DateTime timestamp { get; set; }
-    public Type? RequestType { get; }
+    public Type? RequestType => null;
 }
