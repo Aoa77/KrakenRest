@@ -1,5 +1,7 @@
 # KrakenRest
-[Kraken](https://www.kraken.com/) is a popular cryptocurrency exchange. The KrakenRest project is a .NET Core Web API wrapper around Kraken's [Spot Market Data Rest API](https://docs.kraken.com/rest/#tag/Spot-Market-Data).
+[Kraken](https://www.kraken.com/) is a popular cryptocurrency exchange.
+
+The KrakenRest project is a .NET Core Web API wrapper around Kraken's [Spot Market Data Rest API](https://docs.kraken.com/rest/#tag/Spot-Market-Data).
 
 Below is a quick video demonstrating the localhost dev environment in Visual Studio.
 
